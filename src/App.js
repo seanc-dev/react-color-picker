@@ -6,10 +6,10 @@ import { generatePalette } from "./service/colorHelpers";
 import seedColors from "./seedColors";
 
 function App() {
-  console.log(generatePalette(seedColors[4]));
+  const palette = generatePalette(seedColors[4]);
   return (
     <div className="App">
-      <Palette {...seedColors[4]} />
+      <Palette palette={palette} />
     </div>
   );
 }
