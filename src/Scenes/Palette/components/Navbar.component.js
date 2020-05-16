@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import "rc-slider/assets/index.css";
 import "./Navbar.component.css";
+import { Link } from "react-router-dom";
 
 function Navbar({ level, setLevel, format, setFormat }) {
   const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ function Navbar({ level, setLevel, format, setFormat }) {
   return (
     <header className="Navbar">
       <div className="logo">
-        <a href="/">ColourPaletteBuilder</a>
+        <Link to="/">ColourPaletteBuilder</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>
