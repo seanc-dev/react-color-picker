@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import MiniPalette from "./components/MiniPalette.component";
+
 function PaletteList({ palettes }) {
   console.log(palettes);
   return (
@@ -9,7 +11,7 @@ function PaletteList({ palettes }) {
       {palettes.map((palette) => (
         <p>
           <Link to={`/palette/${palette.id}`} key={palette.id}>
-            {palette.paletteName}
+            <MiniPalette {...palette} />
           </Link>
         </p>
       ))}
