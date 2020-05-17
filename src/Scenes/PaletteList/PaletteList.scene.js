@@ -31,8 +31,10 @@ const styles = {
   },
 };
 
-function PaletteList({ palettes, classes }) {
-  console.log(palettes);
+function PaletteList({ palettes, classes, history }) {
+  const handlePaletteClick = (e) => {
+    history.push(`/palette/${e.currentTarget.dataset.id}`);
+  };
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -43,7 +45,7 @@ function PaletteList({ palettes, classes }) {
           <Grid container spacing={3}>
             {palettes.map((palette) => (
               <Grid item xs={12} md={4}>
-                <MiniPalette {...palette} />
+                <MiniPalette {...palette} clickHandler={handlePaletteClick} />
               </Grid>
             ))}
           </Grid>

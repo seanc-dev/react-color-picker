@@ -15,11 +15,13 @@ function App() {
     return <Palette {...palette} />;
   };
   const findPalette = (id) => seedColors.find((palette) => palette.id === id);
-  const palettes = () => <PaletteList palettes={seedColors} />;
+  const palettes = (routeProps) => (
+    <PaletteList {...routeProps} palettes={seedColors} />
+  );
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" render={palettes} />
+        <Route exact path="/" component={palettes} />
         <Route
           exact
           path="/palette/:paletteId"
