@@ -2,6 +2,7 @@ import React from "react";
 
 import Palette from "./Scenes/Palette/Palette.scene";
 import PaletteList from "./Scenes/PaletteList/PaletteList.scene";
+import SingleColorPalette from "./Scenes/SingleColorPalette/SingleColorPalette.scene";
 
 import { generatePalette } from "./service/colorHelpers";
 import seedColors from "./seedColors";
@@ -26,6 +27,11 @@ function App() {
           exact
           path="/palette/:paletteId"
           render={generatePaletteComponent}
+        />
+        <Route
+          exact
+          path="/palette/:palette:id/:colorId"
+          render={() => <SingleColorPalette />}
         />
       </Switch>
     </div>

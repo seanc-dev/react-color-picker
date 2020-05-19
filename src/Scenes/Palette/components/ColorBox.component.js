@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import "./ColorBox.component.css";
+import { Link } from "react-router-dom";
 
-function ColorBox({ background, name }) {
+function ColorBox({ background, name, id, paletteId }) {
   const [copyTimeout, setCopyTimeout] = useState(false);
   const changeCopyState = () => {
     setCopyTimeout(true);
-    setTimeout(() => setCopyTimeout(false), 1250);
+    setTimeout(() => setCopyTimeout(false), 1500);
   };
+  const stopPropagation = (e) => e.stopPropagation();
   return (
     <CopyToClipboard text={background} onCopy={changeCopyState}>
       <div className="ColorBox" style={{ background }}>
@@ -26,7 +28,9 @@ function ColorBox({ background, name }) {
           </div>
           <button className="copy-button">Copy</button>
         </div>
-        <span className="see-more">More</span>
+        <Link to={`/palette/${paletteId}/${id}`} onCLick={stopPropagation}>
+          <span className="see-more">More</span>
+        </Link>
       </div>
     </CopyToClipboard>
   );
