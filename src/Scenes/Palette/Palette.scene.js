@@ -1,10 +1,11 @@
 import React from "react";
 
-import ColorBox from "./components/ColorBox.component";
-import Navbar from "./components/Navbar.component";
+import ColorBox from "../../components/ColorBox.component";
+import Navbar from "../../components/Navbar.component";
 
 import "./Palette.scene.css";
 import { useState } from "react";
+import Footer from "../../components/Footer.component";
 
 function Palette({ palette: { colors, paletteName, emoji, id } }) {
   const [level, setLevel] = useState(500);
@@ -26,12 +27,10 @@ function Palette({ palette: { colors, paletteName, emoji, id } }) {
         setLevel={setLevel}
         format={format}
         setFormat={setFormat}
+        showSlider
       />
       <div className="Palette-colors">{colorBoxes}</div>
-      <footer className="Palette-footer">
-        {`${paletteName}`}
-        <span className="emoji"> {emoji}</span>
-      </footer>
+      <Footer paletteName={paletteName} emoji={emoji} />
     </div>
   );
 }

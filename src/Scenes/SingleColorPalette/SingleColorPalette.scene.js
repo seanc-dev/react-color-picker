@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import ColorBox from "../Palette/components/ColorBox.component";
+import uuid from "uuid/v4";
+
+import ColorBox from "../../components/ColorBox.component";
+import Navbar from "../../components/Navbar.component";
+import Footer from "../../components/Footer.component";
 
 function SingleColorPalette({
-  palette: { colors },
+  palette: { colors, paletteName, emoji },
   match: {
     params: { paletteId, colorId },
   },
@@ -15,11 +19,11 @@ function SingleColorPalette({
   shades = shades.slice(1);
   return (
     <div className="Palette">
-      <h1>Single Color Palette</h1>
+      <Navbar format={format} setFormat={setFormat} showSlider={false} />
       <div className="Palette-colors">
         {shades.map((shade) => (
           <ColorBox
-            key={shade.id}
+            key={uuid()}
             id={shade.id}
             paletteId={paletteId}
             background={shade[format]}
@@ -28,6 +32,7 @@ function SingleColorPalette({
           />
         ))}
       </div>
+      <Footer paletteName={paletteName} emoji={emoji} />
     </div>
   );
 }
