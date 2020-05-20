@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import uuid from "uuid/v4";
 
 import ColorBox from "../../components/ColorBox.component";
@@ -17,20 +18,26 @@ function SingleColorPalette({
     shades.push(colors[level].find((color) => color.id === colorId));
   }
   shades = shades.slice(1);
+  const colorBoxes = shades.map((shade) => (
+    <ColorBox
+      key={uuid()}
+      id={shade.id}
+      paletteId={paletteId}
+      background={shade[format]}
+      name={shade.name}
+      moreLink={false}
+    />
+  ));
   return (
-    <div className="Palette">
+    <div className="SingleColorPalette Palette">
       <Navbar format={format} setFormat={setFormat} showSlider={false} />
       <div className="Palette-colors">
-        {shades.map((shade) => (
-          <ColorBox
-            key={uuid()}
-            id={shade.id}
-            paletteId={paletteId}
-            background={shade[format]}
-            name={shade.name}
-            moreLink={false}
-          />
-        ))}
+        {colorBoxes}
+        <div className="go-back ColorBox">
+          <Link to={`/palette/${paletteId}`} className="back-button">
+            GO BACK
+          </Link>
+        </div>
       </div>
       <Footer paletteName={paletteName} emoji={emoji} />
     </div>
