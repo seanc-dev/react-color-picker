@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar.component";
 import "./Palette.scene.css";
 import { useState } from "react";
 
-function Palette({ colors, paletteName, emoji, id }) {
+function Palette({ palette: { colors, paletteName, emoji, id } }) {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState("hex");
   const colorBoxes = colors[level].map((color) => (
@@ -16,6 +16,7 @@ function Palette({ colors, paletteName, emoji, id }) {
       paletteId={id}
       background={color[format]}
       name={color.name}
+      moreLink
     />
   ));
   return (
