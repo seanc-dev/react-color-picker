@@ -10,7 +10,7 @@ import "rc-slider/assets/index.css";
 import "./Navbar.component.css";
 import { Link } from "react-router-dom";
 
-function Navbar({ level, setLevel, format, setFormat }) {
+function Navbar({ level, setLevel, format, setFormat, showSlider }) {
   const [open, setOpen] = useState(false);
   const handleChange = (e) => {
     setFormat(e.target.value);
@@ -23,18 +23,20 @@ function Navbar({ level, setLevel, format, setFormat }) {
       <div className="logo">
         <Link to="/">ColourPaletteBuilder</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={setLevel}
-          />
+      {showSlider && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={setLevel}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #FFFFFF</MenuItem>
