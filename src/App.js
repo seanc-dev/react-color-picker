@@ -2,6 +2,7 @@ import React from "react";
 
 import Palette from "./Scenes/Palette/Palette.scene";
 import PaletteList from "./Scenes/PaletteList/PaletteList.scene";
+import NewPaletteForm from "./Scenes/NewPaletteForm/NewPaletteForm.scene";
 
 import { generatePalette } from "./service/colorHelpers";
 import seedColors from "./seedColors";
@@ -20,6 +21,7 @@ function App() {
             <PaletteList {...routeProps} palettes={seedColors} />
           )}
         />
+        <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
         <Route
           exact
           path="/palette/:paletteId"
