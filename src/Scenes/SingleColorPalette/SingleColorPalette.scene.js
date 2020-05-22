@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import uuid from "uuid/v4";
 
@@ -6,11 +7,14 @@ import ColorBox from "../../components/ColorBox.component";
 import Navbar from "../../components/Navbar.component";
 import Footer from "../../components/Footer.component";
 
+import styles from "./SingleColorPalette.styles";
+
 function SingleColorPalette({
   palette: { colors, paletteName, emoji },
   match: {
     params: { paletteId, colorId },
   },
+  classes,
 }) {
   const [format, setFormat] = useState("hex");
   let shades = [];
@@ -25,18 +29,16 @@ function SingleColorPalette({
       paletteId={paletteId}
       background={shade[format]}
       name={shade.name}
-      moreLink={false}
+      fullPalette={false}
     />
   ));
   return (
-    <div className="SingleColorPalette Palette">
+    <div className={classes.singleColorPalette}>
       <Navbar format={format} setFormat={setFormat} showSlider={false} />
-      <div className="Palette-colors">
+      <div className={classes.colors}>
         {colorBoxes}
-        <div className="go-back ColorBox">
-          <Link to={`/palette/${paletteId}`} className="back-button">
-            GO BACK
-          </Link>
+        <div className={classes.goBack}>
+          <Link to={`/palette/${paletteId}`}>GO BACK</Link>
         </div>
       </div>
       <Footer paletteName={paletteName} emoji={emoji} />
@@ -44,4 +46,4 @@ function SingleColorPalette({
   );
 }
 
-export default SingleColorPalette;
+export default withStyles(styles)(SingleColorPalette);

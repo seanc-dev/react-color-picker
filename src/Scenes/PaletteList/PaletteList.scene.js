@@ -1,35 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 
 import MiniPalette from "./components/MiniPalette.component";
 
-const styles = {
-  root: {
-    backgroundColor: "blue",
-    height: "100%",
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  container: {
-    width: "50%",
-    display: "flex",
-    alignItems: "flex-start",
-    flexDirection: "column",
-    flexWrap: "wrap",
-  },
-  nav: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    color: "white",
-  },
-  palettes: {
-    boxSizing: "border-box",
-    width: "100%",
-  },
-};
+import styles from "./PaletteList.styles";
 
 function PaletteList({ palettes, classes, history }) {
   const handlePaletteClick = (e) => {
@@ -40,6 +16,7 @@ function PaletteList({ palettes, classes, history }) {
       <div className={classes.container}>
         <nav className={classes.nav}>
           <h1>Color Palette Builder</h1>
+          <Link to="/palette/new">Create Palette</Link>
         </nav>
         <div className={classes.palettes}>
           <Grid container spacing={3}>

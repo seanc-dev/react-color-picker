@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { withStyles } from "@material-ui/styles";
 
 import ColorBox from "../../components/ColorBox.component";
 import Navbar from "../../components/Navbar.component";
-
-import "./Palette.scene.css";
-import { useState } from "react";
 import Footer from "../../components/Footer.component";
 
-function Palette({ palette: { colors, paletteName, emoji, id } }) {
+import styles from "./Palette.styles";
+
+function Palette({ palette: { colors, paletteName, emoji, id }, classes }) {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState("hex");
   const colorBoxes = colors[level].map((color) => (
@@ -17,11 +17,11 @@ function Palette({ palette: { colors, paletteName, emoji, id } }) {
       paletteId={id}
       background={color[format]}
       name={color.name}
-      moreLink
+      fullPalette
     />
   ));
   return (
-    <div className="Palette">
+    <div className={classes.palette}>
       <Navbar
         level={level}
         setLevel={setLevel}
@@ -29,10 +29,10 @@ function Palette({ palette: { colors, paletteName, emoji, id } }) {
         setFormat={setFormat}
         showSlider
       />
-      <div className="Palette-colors">{colorBoxes}</div>
+      <div className={classes.paletteColors}>{colorBoxes}</div>
       <Footer paletteName={paletteName} emoji={emoji} />
     </div>
   );
 }
 
-export default Palette;
+export default withStyles(styles)(Palette);
