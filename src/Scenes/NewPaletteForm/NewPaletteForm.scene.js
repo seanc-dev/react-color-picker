@@ -90,12 +90,14 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   const [newPaletteName, setNewPaletteName] = useState("");
   const [colorsArray, setColorsArray] = useState([
     { color: "#C38315", name: "Lush Gold" },
-    { color: "#0020F5", name: "Royal Blye" },
+    { color: "#0020F5", name: "Royal Blue" },
     { color: "#00A421", name: "New Growth Green" },
     { color: "#C51602", name: "Sang Real" },
     { color: "#029DC5", name: "Sea Yan" },
     { color: "#3E02BD", name: "Deep Purple" },
   ]);
+
+  const paletteFull = colorsArray.length >= 20;
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
@@ -150,6 +152,13 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   const removeColor = (colorToRemove) => {
     setColorsArray(colorsArray.filter(({ color }) => color !== colorToRemove));
   };
+
+  const clearColors = () => setColorsArray([]);
+
+  const setRandomColor = () =>
+    setPickedColor(
+      "#000000".replace(/0/g, () => (~~(Math.random() * 16)).toString(16))
+    );
 
   const onSortEnd = ({ oldIndex, newIndex }) =>
     setColorsArray(arrayMove(colorsArray, oldIndex, newIndex));
@@ -219,10 +228,10 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
         <Divider />
         <Typography variant="h5">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={clearColors}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={setRandomColor}>
             Random Color
           </Button>
         </div>
@@ -232,6 +241,7 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
         />
         <ValidatorForm onSubmit={handleAddColor}>
           <TextValidator
+            disabled={paletteFull}
             value={newColorName}
             onChange={handleColorNameChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
@@ -247,7 +257,7 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
             type="submit"
             style={{ backgroundColor: pickedColor }}
           >
-            Add Color
+            {!paletteFull ? "Add Color" : "Palette Full"}
           </Button>
         </ValidatorForm>
       </Drawer>
