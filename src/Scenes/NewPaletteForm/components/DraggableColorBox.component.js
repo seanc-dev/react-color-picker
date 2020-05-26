@@ -1,4 +1,5 @@
 import React from "react";
+import { SortableElement } from "react-sortable-hoc";
 import { withStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 // import chroma from "chroma-js";
@@ -57,4 +58,4 @@ function DraggableColorBox({ backgroundColor, name, classes, removeColor }) {
   );
 }
 
-export default withStyles(styles)(DraggableColorBox);
+export default SortableElement(withStyles(styles)(DraggableColorBox));

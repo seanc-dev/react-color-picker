@@ -13,8 +13,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { arrayMove } from "react-sortable-hoc";
 
-import DraggableColorBox from "./components/DraggableColorBox.component";
+import DraggableColorList from "./components/DraggableColorList.component";
 
 const drawerWidth = 300;
 
@@ -89,6 +90,11 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   const [newPaletteName, setNewPaletteName] = useState("");
   const [colorsArray, setColorsArray] = useState([
     { color: "#C38315", name: "Lush Gold" },
+    { color: "#0020F5", name: "Royal Blye" },
+    { color: "#00A421", name: "New Growth Green" },
+    { color: "#C51602", name: "Sang Real" },
+    { color: "#029DC5", name: "Sea Yan" },
+    { color: "#3E02BD", name: "Deep Purple" },
   ]);
 
   useEffect(() => {
@@ -125,11 +131,8 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
     setNewColorName("");
   };
 
-  const removeColor = (colorToRemove) => {
-    setColorsArray(colorsArray.filter(({ color }) => color !== colorToRemove));
-  };
-
   const handleColorNameChange = (evt) => setNewColorName(evt.target.value);
+
   const handlePaletteNameChange = (evt) => setNewPaletteName(evt.target.value);
 
   const handlePaletteSave = () => {
@@ -143,6 +146,13 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
     ]);
     history.push("/");
   };
+
+  const removeColor = (colorToRemove) => {
+    setColorsArray(colorsArray.filter(({ color }) => color !== colorToRemove));
+  };
+
+  const onSortEnd = ({ oldIndex, newIndex }) =>
+    setColorsArray(arrayMove(colorsArray, oldIndex, newIndex));
 
   return (
     <div className={classes.root}>
@@ -247,14 +257,12 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
         })}
       >
         <div className={classes.drawerHeader} />
-        {colorsArray.map((color) => (
-          <DraggableColorBox
-            key={color.color}
-            backgroundColor={color.color}
-            name={color.name}
-            removeColor={removeColor}
-          />
-        ))}
+        <DraggableColorList
+          colorsArray={colorsArray}
+          removeColor={removeColor}
+          axis="xy"
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   );
