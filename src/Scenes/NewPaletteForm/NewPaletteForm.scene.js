@@ -83,11 +83,13 @@ const useStyles = makeStyles((theme) => ({
 function NewPaletteForm({ setPalettes, palettes, history }) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(true);
   const [pickedColor, setPickedColor] = useState("#303F9F");
   const [newColorName, setNewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
-  const [colorsArray, setColorsArray] = useState([]);
+  const [colorsArray, setColorsArray] = useState([
+    { color: "#C38315", name: "Lush Gold" },
+  ]);
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
@@ -121,6 +123,10 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
       { color: pickedColor, name: newColorName },
     ]);
     setNewColorName("");
+  };
+
+  const removeColor = (colorToRemove) => {
+    setColorsArray(colorsArray.filter(({ color }) => color !== colorToRemove));
   };
 
   const handleColorNameChange = (evt) => setNewColorName(evt.target.value);
@@ -242,7 +248,12 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
       >
         <div className={classes.drawerHeader} />
         {colorsArray.map((color) => (
-          <DraggableColorBox backgroundColor={color.color} name={color.name} />
+          <DraggableColorBox
+            key={color.color}
+            backgroundColor={color.color}
+            name={color.name}
+            removeColor={removeColor}
+          />
         ))}
       </main>
     </div>
