@@ -12,7 +12,7 @@ import SingleColorPalette from "./Scenes/SingleColorPalette/SingleColorPalette.s
 function App() {
   const [palettes, setPalettes] = useState(seedColors);
   const findPalette = (id) => palettes.find((palette) => palette.id === id);
-  const savePalette = (newPalette) => setPalettes([...palettes, newPalette]);
+
   return (
     <div className="App">
       <Switch>
@@ -27,7 +27,11 @@ function App() {
           exact
           path="/palette/new"
           render={(routeProps) => (
-            <NewPaletteForm savePalette={savePalette} {...routeProps} />
+            <NewPaletteForm
+              setPalettes={setPalettes}
+              palettes={palettes}
+              {...routeProps}
+            />
           )}
         />
         <Route

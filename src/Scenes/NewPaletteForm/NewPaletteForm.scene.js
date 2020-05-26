@@ -15,7 +15,6 @@ import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 import DraggableColorBox from "./components/DraggableColorBox.component";
-import { Redirect } from "react-router";
 
 const drawerWidth = 300;
 
@@ -81,12 +80,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewPaletteForm({ savePalette, history }) {
+function NewPaletteForm({ setPalettes, palettes, history }) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
   const [pickedColor, setPickedColor] = useState("#303F9F");
   const [newColorName, setNewColorName] = useState("");
+  const [newPaletteName, setNewPaletteName] = useState("");
   const [colorsArray, setColorsArray] = useState([]);
 
   useEffect(() => {
@@ -98,6 +98,17 @@ function NewPaletteForm({ savePalette, history }) {
     ValidatorForm.addValidationRule("isColorUnique", (value) =>
       colorsArray.every(({ color }) => color !== pickedColor)
     );
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (newPaletteName) =>
+      palettes.every(
+        ({ paletteName }) =>
+          paletteName.toLowerCase() !== newPaletteName.toLowerCase()
+      )
+    );
+    ValidatorForm.addValidationRule(
+      "isPaletteNotEmpty",
+      (value) => colorsArray.length && colorsArray.length > 0
+    );
+    ValidatorForm.addValidationRule("isPaletteNameEmpty", (value) => !!value);
   });
 
   const handleDrawerOpen = () => setOpen(true);
@@ -112,15 +123,18 @@ function NewPaletteForm({ savePalette, history }) {
     setNewColorName("");
   };
 
-  const handleNameChange = (evt) => setNewColorName(evt.target.value);
+  const handleColorNameChange = (evt) => setNewColorName(evt.target.value);
+  const handlePaletteNameChange = (evt) => setNewPaletteName(evt.target.value);
 
   const handlePaletteSave = () => {
-    let newPaletteName = "New Test Palette";
-    savePalette({
-      paletteName: newPaletteName,
-      id: "New Test Palette".toLowerCase().replace(/ /g, "-"),
-      colors: colorsArray,
-    });
+    setPalettes([
+      ...palettes,
+      {
+        paletteName: newPaletteName,
+        id: newPaletteName.toLowerCase().replace(/ /g, "-"),
+        colors: colorsArray,
+      },
+    ]);
     history.push("/");
   };
 
@@ -150,13 +164,25 @@ function NewPaletteForm({ savePalette, history }) {
             </Typography>
           </div>
           <div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handlePaletteSave}
-            >
-              Save Palette
-            </Button>
+            <ValidatorForm onSubmit={handlePaletteSave}>
+              <TextValidator
+                value={newPaletteName}
+                onChange={handlePaletteNameChange}
+                validators={[
+                  "required",
+                  "isPaletteNameUnique",
+                  "isPaletteNotEmpty",
+                ]}
+                errorMessages={[
+                  "Give your palette a name",
+                  "That name is already in use!",
+                  "Add some colors to your palette!",
+                ]}
+              />
+              <Button variant="contained" color="primary" type="submit">
+                Save Palette
+              </Button>
+            </ValidatorForm>
           </div>
         </Toolbar>
       </AppBar>
@@ -191,7 +217,7 @@ function NewPaletteForm({ savePalette, history }) {
         <ValidatorForm onSubmit={handleAddColor}>
           <TextValidator
             value={newColorName}
-            onChange={handleNameChange}
+            onChange={handleColorNameChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
               "Enter a name",
