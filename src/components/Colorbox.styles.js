@@ -17,10 +17,14 @@ export default {
   },
   boxContent: {
     position: "absolute",
+    width: "100%",
     left: "0px",
     bottom: "0px",
     padding: "10px",
     color: "black",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+    fontSize: "12px",
   },
   copyOverlay: {
     opacity: 0,
