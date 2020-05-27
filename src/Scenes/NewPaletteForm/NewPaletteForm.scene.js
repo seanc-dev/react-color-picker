@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,6 +16,7 @@ import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { arrayMove } from "react-sortable-hoc";
 
+import NewPaletteNav from "./components/NewPaletteNav.component";
 import DraggableColorList from "./components/DraggableColorList.component";
 
 const drawerWidth = 300;
@@ -79,6 +81,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
+  backButton: {
+    "& a": {
+      textDecoration: "none",
+    },
+  },
 }));
 
 function NewPaletteForm({ setPalettes, palettes, history }) {
@@ -108,17 +115,6 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
     ValidatorForm.addValidationRule("isColorUnique", (value) =>
       colorsArray.every(({ color }) => color !== pickedColor)
     );
-    ValidatorForm.addValidationRule("isPaletteNameUnique", (newPaletteName) =>
-      palettes.every(
-        ({ paletteName }) =>
-          paletteName.toLowerCase() !== newPaletteName.toLowerCase()
-      )
-    );
-    ValidatorForm.addValidationRule(
-      "isPaletteNotEmpty",
-      (value) => colorsArray.length && colorsArray.length > 0
-    );
-    ValidatorForm.addValidationRule("isPaletteNameEmpty", (value) => !!value);
   });
 
   const handleDrawerOpen = () => setOpen(true);
@@ -165,52 +161,16 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        color="default"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <div className={classes.toolbarHeader}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Persistent drawer
-            </Typography>
-          </div>
-          <div>
-            <ValidatorForm onSubmit={handlePaletteSave}>
-              <TextValidator
-                value={newPaletteName}
-                onChange={handlePaletteNameChange}
-                validators={[
-                  "required",
-                  "isPaletteNameUnique",
-                  "isPaletteNotEmpty",
-                ]}
-                errorMessages={[
-                  "Give your palette a name",
-                  "That name is already in use!",
-                  "Add some colors to your palette!",
-                ]}
-              />
-              <Button variant="contained" color="primary" type="submit">
-                Save Palette
-              </Button>
-            </ValidatorForm>
-          </div>
-        </Toolbar>
-      </AppBar>
+      <NewPaletteNav
+        open={open}
+        classes={classes}
+        palettes={palettes}
+        colorsArray={colorsArray}
+        newPaletteName={newPaletteName}
+        handleDrawerOpen={handleDrawerOpen}
+        handlePaletteSave={handlePaletteSave}
+        handlePaletteNameChange={handlePaletteNameChange}
+      />
       <Drawer
         className={classes.drawer}
         variant="persistent"
