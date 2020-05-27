@@ -17,6 +17,7 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { arrayMove } from "react-sortable-hoc";
 
 import NewPaletteNav from "./components/NewPaletteNav.component";
+import ColorPickerForm from "./components/ColorPickerForm.component";
 import DraggableColorList from "./components/DraggableColorList.component";
 
 const drawerWidth = 300;
@@ -93,7 +94,6 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
 
   const [open, setOpen] = useState(true);
   const [pickedColor, setPickedColor] = useState("#303F9F");
-  const [newColorName, setNewColorName] = useState("");
   const [newPaletteName, setNewPaletteName] = useState("");
   const [colorsArray, setColorsArray] = useState([
     { color: "#C38315", name: "Lush Gold" },
@@ -106,30 +106,9 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
 
   const paletteFull = colorsArray.length >= 20;
 
-  useEffect(() => {
-    ValidatorForm.addValidationRule("isColorNameUnique", (value) =>
-      colorsArray.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      )
-    );
-    ValidatorForm.addValidationRule("isColorUnique", (value) =>
-      colorsArray.every(({ color }) => color !== pickedColor)
-    );
-  });
-
   const handleDrawerOpen = () => setOpen(true);
 
   const handleDrawerClose = () => setOpen(false);
-
-  const handleAddColor = () => {
-    setColorsArray([
-      ...colorsArray,
-      { color: pickedColor, name: newColorName },
-    ]);
-    setNewColorName("");
-  };
-
-  const handleColorNameChange = (evt) => setNewColorName(evt.target.value);
 
   const handlePaletteNameChange = (evt) => setNewPaletteName(evt.target.value);
 
@@ -195,31 +174,13 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
             Random Color
           </Button>
         </div>
-        <ChromePicker
-          color={pickedColor ? pickedColor : "#303F9F"}
-          onChangeComplete={(newColor) => setPickedColor(newColor.hex)}
+        <ColorPickerForm
+          pickedColor={pickedColor}
+          setPickedColor={setPickedColor}
+          colorsArray={colorsArray}
+          setColorsArray={setColorsArray}
+          paletteFull={paletteFull}
         />
-        <ValidatorForm onSubmit={handleAddColor}>
-          <TextValidator
-            disabled={paletteFull}
-            value={newColorName}
-            onChange={handleColorNameChange}
-            validators={["required", "isColorNameUnique", "isColorUnique"]}
-            errorMessages={[
-              "Enter a name",
-              "This name is already in use",
-              "That color is already in your palette",
-            ]}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ backgroundColor: pickedColor }}
-          >
-            {!paletteFull ? "Add Color" : "Palette Full"}
-          </Button>
-        </ValidatorForm>
       </Drawer>
       <main
         className={clsx(classes.content, {
