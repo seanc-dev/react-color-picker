@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
+import { makeStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { ChromePicker } from "react-color";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { arrayMove } from "react-sortable-hoc";
+
+const useStyles = makeStyles((theme) => ({
+  picker: {
+    width: "100% !important",
+    marginTop: "2rem",
+  },
+  addColorBtn: {
+    width: "100%",
+    padding: "1rem",
+    fontSize: "1.25rem",
+    marginTop: "1rem",
+  },
+  colorNameInput: {
+    width: "100%",
+    marginTop: "1rem",
+  },
+}));
 
 function ColorPickerForm({
   pickedColor,
@@ -23,6 +28,8 @@ function ColorPickerForm({
   setColorsArray,
   paletteFull,
 }) {
+  const classes = useStyles();
+
   const [newColorName, setNewColorName] = useState("");
 
   useEffect(() => {
@@ -50,10 +57,14 @@ function ColorPickerForm({
     <div>
       <ChromePicker
         color={pickedColor ? pickedColor : "#303F9F"}
+        className={classes.picker}
         onChangeComplete={(newColor) => setPickedColor(newColor.hex)}
       />
       <ValidatorForm onSubmit={handleSubmit}>
         <TextValidator
+          className={classes.colorNameInput}
+          // variant="filled"
+          placeholder="Enter a name for your color"
           disabled={paletteFull}
           value={newColorName}
           onChange={handleColorNameChange}
@@ -65,6 +76,7 @@ function ColorPickerForm({
           ]}
         />
         <Button
+          className={classes.addColorBtn}
           variant="contained"
           color="primary"
           type="submit"

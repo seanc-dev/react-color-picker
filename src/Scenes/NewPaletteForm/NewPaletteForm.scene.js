@@ -1,26 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { ChromePicker } from "react-color";
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { arrayMove } from "react-sortable-hoc";
 
 import NewPaletteNav from "./components/NewPaletteNav.component";
 import ColorPickerForm from "./components/ColorPickerForm.component";
 import DraggableColorList from "./components/DraggableColorList.component";
 
-const drawerWidth = 300;
+import config from "../../config";
+
+const drawerWidth = config.drawerWidth;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    height: "64px",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -87,6 +86,25 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
   },
+  drawerContainer: {
+    width: "90%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "auto",
+  },
+  drawerButtons: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: "1rem",
+  },
+  inlineButton: {
+    width: "47.5%",
+  },
 }));
 
 function NewPaletteForm({ setPalettes, palettes, history }) {
@@ -141,8 +159,8 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   return (
     <div className={classes.root}>
       <NewPaletteNav
-        open={open}
         classes={classes}
+        open={open}
         palettes={palettes}
         colorsArray={colorsArray}
         newPaletteName={newPaletteName}
@@ -165,22 +183,35 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
           </IconButton>
         </div>
         <Divider />
-        <Typography variant="h5">Design Your Palette</Typography>
-        <div>
-          <Button variant="contained" color="secondary" onClick={clearColors}>
-            Clear Palette
-          </Button>
-          <Button variant="contained" color="primary" onClick={setRandomColor}>
-            Random Color
-          </Button>
+        <div className={classes.drawerContainer}>
+          <Typography variant="h5">Design Your Palette</Typography>
+          <div className={classes.drawerButtons}>
+            <Button
+              className={classes.inlineButton}
+              variant="contained"
+              color="secondary"
+              onClick={clearColors}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              className={classes.inlineButton}
+              variant="contained"
+              color="primary"
+              onClick={setRandomColor}
+            >
+              Random Color
+            </Button>
+          </div>
+          <ColorPickerForm
+            pickedColor={pickedColor}
+            setPickedColor={setPickedColor}
+            colorsArray={colorsArray}
+            setColorsArray={setColorsArray}
+            paletteFull={paletteFull}
+            classes={classes}
+          />
         </div>
-        <ColorPickerForm
-          pickedColor={pickedColor}
-          setPickedColor={setPickedColor}
-          colorsArray={colorsArray}
-          setColorsArray={setColorsArray}
-          paletteFull={paletteFull}
-        />
       </Drawer>
       <main
         className={clsx(classes.content, {

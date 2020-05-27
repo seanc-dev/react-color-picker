@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -62,22 +61,24 @@ function NewPaletteNav({
               Persistent drawer
             </Typography>
           </div>
-          <div>
-            <ValidatorForm onSubmit={handlePaletteSave}>
-              <TextValidator
-                value={newPaletteName}
-                onChange={handlePaletteNameChange}
-                validators={[
-                  "required",
-                  "isPaletteNameUnique",
-                  "isPaletteNotEmpty",
-                ]}
-                errorMessages={[
-                  "Give your palette a name",
-                  "That name is already in use!",
-                  "Add some colors to your palette!",
-                ]}
-              />
+        </Toolbar>
+        <div>
+          <ValidatorForm onSubmit={handlePaletteSave}>
+            <TextValidator
+              value={newPaletteName}
+              onChange={handlePaletteNameChange}
+              validators={[
+                "required",
+                "isPaletteNameUnique",
+                "isPaletteNotEmpty",
+              ]}
+              errorMessages={[
+                "Give your palette a name",
+                "That name is already in use!",
+                "Add some colors to your palette!",
+              ]}
+            />
+            <div className="navBtns">
               <Link to="/">
                 <Button variant="contained" color="secondary">
                   Go Back
@@ -91,9 +92,9 @@ function NewPaletteNav({
               >
                 Save Palette
               </Button>
-            </ValidatorForm>
-          </div>
-        </Toolbar>
+            </div>
+          </ValidatorForm>
+        </div>
       </AppBar>
     </div>
   );
