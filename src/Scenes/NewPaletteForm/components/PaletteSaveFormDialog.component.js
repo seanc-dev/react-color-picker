@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -9,11 +9,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
-const useStyles = makeStyles((theme) => ({
-  paletteNameInput: {
-    width: "100%",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   paletteNameInput: {
+//     width: "100%",
+//   },
+// }));
 
 function PaletteSaveFormDialog({
   palettes,
@@ -21,7 +21,7 @@ function PaletteSaveFormDialog({
   colorsArray,
   history,
 }) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const [open, setOpen] = useState(false);
   const [newPaletteName, setNewPaletteName] = useState("");
@@ -72,9 +72,6 @@ function PaletteSaveFormDialog({
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -88,8 +85,10 @@ function PaletteSaveFormDialog({
               unique!
             </DialogContentText>
             <TextValidator
-              className={classes.paletteNameInput}
+              // className={classes.paletteNameInput}
               value={newPaletteName}
+              fullWidth
+              margin="normal"
               onChange={handlePaletteNameChange}
               validators={[
                 "required",
