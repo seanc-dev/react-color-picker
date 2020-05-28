@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -13,106 +13,11 @@ import NewPaletteNav from "./components/NewPaletteNav.component";
 import ColorPickerForm from "./components/ColorPickerForm.component";
 import DraggableColorList from "./components/DraggableColorList.component";
 
-import config from "../../config";
+import styles from "./NewPaletteForm.styles";
 
-const drawerWidth = config.drawerWidth;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    height: "64px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  },
-  content: {
-    flexGrow: 1,
-    // padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-    height: "calc(100vh - 64px)",
-  },
-  contentShift: {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  toolbarHeader: {
-    display: "flex",
-    alignItems: "center",
-  },
-  backButton: {
-    "& a": {
-      textDecoration: "none",
-    },
-  },
-  drawerContainer: {
-    width: "90%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "auto",
-  },
-  drawerButtons: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: "1rem",
-  },
-  inlineButton: {
-    width: "47.5%",
-  },
-}));
-
-function NewPaletteForm({ setPalettes, palettes, history }) {
-  const classes = useStyles();
-
+function NewPaletteForm({ setPalettes, palettes, classes }) {
   const [open, setOpen] = useState(true);
   const [pickedColor, setPickedColor] = useState("#303F9F");
-  const [newPaletteName, setNewPaletteName] = useState("");
   const [colorsArray, setColorsArray] = useState([
     { color: "#C38315", name: "Lush Gold" },
     { color: "#0020F5", name: "Royal Blue" },
@@ -127,20 +32,6 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   const handleDrawerOpen = () => setOpen(true);
 
   const handleDrawerClose = () => setOpen(false);
-
-  const handlePaletteNameChange = (evt) => setNewPaletteName(evt.target.value);
-
-  const handlePaletteSave = () => {
-    setPalettes([
-      ...palettes,
-      {
-        paletteName: newPaletteName,
-        id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-        colors: colorsArray,
-      },
-    ]);
-    history.push("/");
-  };
 
   const removeColor = (colorToRemove) => {
     setColorsArray(colorsArray.filter(({ color }) => color !== colorToRemove));
@@ -162,11 +53,9 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
         classes={classes}
         open={open}
         palettes={palettes}
+        setPalettes={setPalettes}
         colorsArray={colorsArray}
-        newPaletteName={newPaletteName}
         handleDrawerOpen={handleDrawerOpen}
-        handlePaletteSave={handlePaletteSave}
-        handlePaletteNameChange={handlePaletteNameChange}
       />
       <Drawer
         className={classes.drawer}
@@ -230,4 +119,4 @@ function NewPaletteForm({ setPalettes, palettes, history }) {
   );
 }
 
-export default NewPaletteForm;
+export default withStyles(styles)(NewPaletteForm);
