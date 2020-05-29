@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/styles";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,44 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import PaletteSaveFormDialog from "./PaletteSaveFormDialog.component";
 
-import config from "../../../config";
-
-const { drawerWidth } = config;
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    height: "64px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
-  buttons: {
-    margin: "0 0.25rem",
-  },
-  toolbarHeader: {
-    display: "flex",
-    alignItems: "center",
-  },
-}));
+import useStyles from "./NewPaletteNav.styles";
 
 function NewPaletteNav({
   open,

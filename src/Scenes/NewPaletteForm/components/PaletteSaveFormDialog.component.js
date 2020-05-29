@@ -73,7 +73,7 @@ function PaletteSaveFormDialog({
         </DialogTitle>
         <Divider />
         <DialogContent>
-          <Picker onSelect={handleEmojiSelect} />
+          <Picker title="Gotta Pick Em All!" onSelect={handleEmojiSelect} />
         </DialogContent>
       </Dialog>
       <Dialog
