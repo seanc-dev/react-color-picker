@@ -9,6 +9,6 @@ export default {
   },
   emoji: {
     fontSize: "1rem",
-    margin: "0 1rem",
+    margin: "auto 1rem",
   },
 };
