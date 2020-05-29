@@ -15,7 +15,7 @@ import DraggableColorList from "./components/DraggableColorList.component";
 
 import styles from "./NewPaletteForm.styles";
 
-function NewPaletteForm({ setPalettes, palettes, classes }) {
+function NewPaletteForm({ savePalettes, palettes, classes }) {
   const [open, setOpen] = useState(true);
   const [pickedColor, setPickedColor] = useState("#303F9F");
   const [colorsArray, setColorsArray] = useState([
@@ -51,9 +51,9 @@ function NewPaletteForm({ setPalettes, palettes, classes }) {
     <div className={classes.root}>
       <NewPaletteNav
         classes={classes}
-        open={open}
+        savePalettes={savePalettes}
         palettes={palettes}
-        setPalettes={setPalettes}
+        open={open}
         colorsArray={colorsArray}
         handleDrawerOpen={handleDrawerOpen}
       />

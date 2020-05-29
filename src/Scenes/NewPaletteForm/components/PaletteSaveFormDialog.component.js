@@ -13,8 +13,8 @@ import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";
 
 function PaletteSaveFormDialog({
+  savePalettes,
   palettes,
-  setPalettes,
   colorsArray,
   dialogStage,
   setDialogStage,
@@ -49,15 +49,13 @@ function PaletteSaveFormDialog({
   };
 
   const handleEmojiSelect = (emoji) => {
-    setPalettes([
-      ...palettes,
-      {
-        paletteName: newPaletteName,
-        id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-        colors: colorsArray,
-        emoji: emoji.native,
-      },
-    ]);
+    const newPalette = {
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
+      colors: colorsArray,
+      emoji: emoji.native,
+    };
+    savePalettes(newPalette);
     history.push("/");
   };
 

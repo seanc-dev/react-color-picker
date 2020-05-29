@@ -16,8 +16,8 @@ import useStyles from "./NewPaletteNav.styles";
 
 function NewPaletteNav({
   open,
+  savePalettes,
   palettes,
-  setPalettes,
   colorsArray,
   handleDrawerOpen,
 }) {
@@ -75,8 +75,8 @@ function NewPaletteNav({
       </AppBar>
       {dialogStage !== "closed" ? (
         <PaletteSaveFormDialog
+          savePalettes={savePalettes}
           palettes={palettes}
-          setPalettes={setPalettes}
           colorsArray={colorsArray}
           dialogStage={dialogStage}
           setDialogStage={setDialogStage}
