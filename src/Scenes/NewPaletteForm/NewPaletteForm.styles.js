@@ -38,10 +38,6 @@ export default (theme) => ({
     }),
     marginLeft: 0,
   },
-  toolbarHeader: {
-    display: "flex",
-    alignItems: "center",
-  },
   backButton: {
     "& a": {
       textDecoration: "none",

@@ -43,7 +43,11 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   buttons: {
-    margin: "0 0.5rem",
+    margin: "0 0.25rem",
+  },
+  toolbarHeader: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -56,9 +60,9 @@ function NewPaletteNav({
 }) {
   const classes = useStyles();
 
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogStage, setDialogStage] = useState("closed");
 
-  const handleDialogOpen = () => setDialogOpen(true);
+  const handleDialogOpen = () => setDialogStage("name");
 
   return (
     <div>
@@ -106,11 +110,13 @@ function NewPaletteNav({
           </Link>
         </div>
       </AppBar>
-      {dialogOpen ? (
+      {dialogStage !== "closed" ? (
         <PaletteSaveFormDialog
           palettes={palettes}
           setPalettes={setPalettes}
           colorsArray={colorsArray}
+          dialogStage={dialogStage}
+          setDialogStage={setDialogStage}
         />
       ) : (
         ""

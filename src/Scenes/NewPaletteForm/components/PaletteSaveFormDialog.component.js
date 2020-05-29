@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { makeStyles } from "@material-ui/styles";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,23 +6,20 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Divider from "@material-ui/core/Divider";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { Picker } from "emoji-mart";
 
-// const useStyles = makeStyles((theme) => ({
-//   paletteNameInput: {
-//     width: "100%",
-//   },
-// }));
+import "emoji-mart/css/emoji-mart.css";
 
 function PaletteSaveFormDialog({
   palettes,
   setPalettes,
   colorsArray,
+  dialogStage,
+  setDialogStage,
   history,
 }) {
-  // const classes = useStyles();
-
-  const [open, setOpen] = useState(false);
   const [newPaletteName, setNewPaletteName] = useState("");
 
   useEffect(() => {
@@ -42,29 +38,24 @@ function PaletteSaveFormDialog({
     ValidatorForm.addValidationRule("isPaletteNameEmpty", (value) => !!value);
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmitClose = () => {
-    ValidatorForm.isFormValid().then((resolve) => {
-      if (resolve) setOpen(false);
-    });
-  };
-
   const handlePaletteNameChange = (evt) => setNewPaletteName(evt.target.value);
 
-  const handlePaletteSave = () => {
+  const handleClose = () => {
+    setDialogStage("closed");
+  };
+
+  const handleNameSave = () => {
+    setDialogStage("emoji");
+  };
+
+  const handleEmojiSelect = (emoji) => {
     setPalettes([
       ...palettes,
       {
         paletteName: newPaletteName,
         id: newPaletteName.toLowerCase().replace(/ /g, "-"),
         colors: colorsArray,
+        emoji: emoji.native,
       },
     ]);
     history.push("/");
@@ -73,12 +64,25 @@ function PaletteSaveFormDialog({
   return (
     <div>
       <Dialog
-        open={open}
+        open={dialogStage === "emoji"}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="emoji-dialog-title">
+          Choose a Palette Emoji
+        </DialogTitle>
+        <Divider />
+        <DialogContent>
+          <Picker onSelect={handleEmojiSelect} />
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={dialogStage === "name"}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
-        <ValidatorForm onSubmit={handlePaletteSave}>
+        <ValidatorForm onSubmit={handleNameSave}>
           <DialogContent>
             <DialogContentText>
               Please enter a name for your new beautiful palette. Make sure it's
@@ -103,16 +107,11 @@ function PaletteSaveFormDialog({
             />
           </DialogContent>
           <DialogActions>
+            <Button variant="contained" color="primary" type="submit">
+              Save
+            </Button>
             <Button variant="contained" color="secondary" onClick={handleClose}>
               Cancel
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={handleSubmitClose}
-            >
-              Save
             </Button>
           </DialogActions>
         </ValidatorForm>
