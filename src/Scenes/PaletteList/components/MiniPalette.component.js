@@ -1,20 +1,13 @@
 import React from "react";
 import uuid from "uuid/v4";
-import { withStyles } from "@material-ui/styles";
 import DeleteIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
-import styles from "./MiniPalette.styles";
+import useStyles from "./MiniPalette.styles";
 
 function MiniPalette(props) {
-  const {
-    paletteName,
-    emoji,
-    id,
-    colors,
-    handleClick,
-    deletePalette,
-    classes,
-  } = props;
+  const { paletteName, emoji, id, colors, handleClick, deletePalette } = props;
+  const classes = useStyles();
+
   const miniColorBoxes = colors.map((color) => (
     <div
       key={uuid()}
@@ -39,4 +32,4 @@ function MiniPalette(props) {
   );
 }
 
-export default withStyles(styles)(MiniPalette);
+export default MiniPalette;

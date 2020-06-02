@@ -48,9 +48,22 @@ function NewPaletteNav({
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Persistent drawer
-            </Typography>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <Typography
+                className={classes.logo}
+                style={{ fontWeight: 400 }}
+                variant="h6"
+                noWrap
+              >
+                ColourPaletteBuilder
+              </Typography>
+            </Link>
           </div>
         </Toolbar>
         <div className={classes.navBtns}>

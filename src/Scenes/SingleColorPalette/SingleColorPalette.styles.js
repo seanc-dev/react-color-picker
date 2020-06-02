@@ -1,4 +1,8 @@
-export default {
+import { makeStyles } from "@material-ui/styles";
+
+import { sizes } from "../../config";
+
+export default makeStyles((theme) => ({
   singleColorPalette: {
     height: "100vh",
     display: "flex",
@@ -36,5 +40,13 @@ export default {
       border: "none",
       textDecoration: "none",
     },
+    [sizes.down("md")]: {
+      width: "50%",
+      height: (props) => (props.fullPalette ? "12.5%" : "20%"),
+    },
+    [sizes.down("xs")]: {
+      width: "100%",
+      height: "12.5% !important",
+    },
   },
-};
+}));

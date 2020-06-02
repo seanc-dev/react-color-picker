@@ -1,6 +1,4 @@
-import config from "../../config";
-
-const drawerWidth = config.drawerWidth;
+import { drawerWidth } from "../../config";
 
 export default (theme) => ({
   root: {

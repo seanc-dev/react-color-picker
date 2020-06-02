@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export default {
+export default makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
     borderRadius: "5px",
@@ -59,4 +59,4 @@ export default {
     borderRadius: "2px",
     transition: "opacity 0.1s ease-in",
   },
-};
+}));

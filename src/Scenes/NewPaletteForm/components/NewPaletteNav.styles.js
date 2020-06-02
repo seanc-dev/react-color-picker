@@ -1,7 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import config from "../../../config";
-
-const { drawerWidth } = config;
+import { drawerWidth } from "../../../config";
 
 export default makeStyles((theme) => ({
   appBar: {
@@ -33,6 +31,16 @@ export default makeStyles((theme) => ({
     margin: "0 0.25rem",
   },
   toolbarHeader: {
+    display: "flex",
+    alignItems: "center",
+  },
+  logo: {
+    marginRight: "15px",
+    padding: "0 13px",
+    fontSize: "22px",
+    backgroundColor: "#eceff1",
+    fontFamily: "Roboto",
+    height: "100%",
     display: "flex",
     alignItems: "center",
   },

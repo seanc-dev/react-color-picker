@@ -1,6 +1,9 @@
+import { makeStyles } from "@material-ui/styles";
 import chroma from "chroma-js";
 
-export default {
+import { sizes } from "../config";
+
+export default makeStyles((theme) => ({
   colorBox: {
     width: "20%",
     height: (props) => (props.fullPalette ? "25%" : "50%"),
@@ -13,6 +16,14 @@ export default {
     "&:hover button": {
       opacity: 1,
       transition: "opacity 0.3s ease-in",
+    },
+    [sizes.down("md")]: {
+      width: "50%",
+      height: (props) => (props.fullPalette ? "12.5%" : "20%"),
+    },
+    [sizes.down("xs")]: {
+      width: "100%",
+      height: (props) => `${props.fullPalette ? "6.75" : "12.5%"} !important`,
     },
   },
   boxContent: {
@@ -91,9 +102,12 @@ export default {
       marginBottom: "0",
       padding: "1rem",
       textTransform: "uppercase",
-      // [sizes.down("xs")]: {
-      //   fontSize: "6rem",
-      // },
+      [sizes.down("md")]: {
+        fontSize: "7rem",
+      },
+      [sizes.down("xs")]: {
+        fontSize: "5rem",
+      },
     },
     "& p": {
       fontSize: "2rem",
@@ -126,4 +140,4 @@ export default {
     textAlign: "center",
     lineHeight: "30px",
   },
-};
+}));

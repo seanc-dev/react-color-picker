@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import uuid from "uuid/v4";
 
@@ -7,16 +6,20 @@ import ColorBox from "../../components/ColorBox.component";
 import Navbar from "../../components/Navbar.component";
 import Footer from "../../components/Footer.component";
 
-import styles from "./SingleColorPalette.styles";
+import useStyles from "./SingleColorPalette.styles";
 
-function SingleColorPalette({
-  palette: { colors, paletteName, emoji },
-  match: {
-    params: { paletteId, colorId },
-  },
-  classes,
-}) {
+function SingleColorPalette(props) {
+  const {
+    palette: { colors, paletteName, emoji },
+    match: {
+      params: { paletteId, colorId },
+    },
+  } = props;
+
+  const classes = useStyles(props);
+
   const [format, setFormat] = useState("hex");
+
   let shades = [];
   for (let level in colors) {
     shades.push(colors[level].find((color) => color.id === colorId));
@@ -32,6 +35,7 @@ function SingleColorPalette({
       fullPalette={false}
     />
   ));
+
   return (
     <div className={classes.singleColorPalette}>
       <Navbar format={format} setFormat={setFormat} showSlider={false} />
@@ -46,4 +50,4 @@ function SingleColorPalette({
   );
 }
 
-export default withStyles(styles)(SingleColorPalette);
+export default SingleColorPalette;
