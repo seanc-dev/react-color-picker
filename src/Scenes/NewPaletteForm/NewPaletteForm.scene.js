@@ -110,6 +110,7 @@ function NewPaletteForm({ savePalettes, palettes, classes }) {
         <div className={classes.drawerHeader} />
         <DraggableColorList
           colorsArray={colorsArray}
+          drawerOpen={open}
           removeColor={removeColor}
           axis="xy"
           onSortEnd={onSortEnd}

@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 
+import { sizes } from "../../../config";
+
 export default makeStyles((theme) => ({
   DraggableColorBox: {
     width: "20%",
@@ -14,6 +16,21 @@ export default makeStyles((theme) => ({
       color: "white",
       transform: "scale(1.1)",
       transition: "all 0.1s ease-in",
+    },
+    [sizes.down("lg")]: {
+      width: (props) => props.drawerOpen && "25%",
+      height: (props) => props.drawerOpen && "20%",
+    },
+    [sizes.down("md")]: {
+      width: (props) => (props.drawerOpen ? "50%" : "25%"),
+      height: (props) => (props.drawerOpen ? "10%" : "20%"),
+    },
+    [sizes.down("sm")]: {
+      width: (props) => (props.drawerOpen ? "100%" : "50%"),
+      height: "10%",
+    },
+    [sizes.down("xs")]: {
+      width: "100%",
     },
   },
   boxContent: {

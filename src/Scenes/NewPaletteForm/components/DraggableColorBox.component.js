@@ -4,8 +4,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import useStyles from "./DraggableColorBox.styles";
 
-function DraggableColorBox({ backgroundColor, name, removeColor }) {
-  const classes = useStyles();
+function DraggableColorBox(props) {
+  const { backgroundColor, name, removeColor } = props;
+  const classes = useStyles(props);
   const handleDelete = () => removeColor(backgroundColor);
   return (
     <div className={classes.DraggableColorBox} style={{ backgroundColor }}>

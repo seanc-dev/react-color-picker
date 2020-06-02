@@ -14,14 +14,9 @@ import PaletteSaveFormDialog from "./PaletteSaveFormDialog.component";
 
 import useStyles from "./NewPaletteNav.styles";
 
-function NewPaletteNav({
-  open,
-  savePalettes,
-  palettes,
-  colorsArray,
-  handleDrawerOpen,
-}) {
-  const classes = useStyles();
+function NewPaletteNav(props) {
+  const { open, savePalettes, palettes, colorsArray, handleDrawerOpen } = props;
+  const classes = useStyles(props);
 
   const [dialogStage, setDialogStage] = useState("closed");
 

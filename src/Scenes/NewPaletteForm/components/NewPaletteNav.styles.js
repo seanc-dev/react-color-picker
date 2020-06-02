@@ -1,5 +1,10 @@
 import { makeStyles } from "@material-ui/styles";
-import { drawerWidth } from "../../../config";
+import { drawerWidth, sizes } from "../../../config";
+
+const h = Math.max(
+  document.documentElement.clientHeight,
+  window.innerHeight || 0
+);
 
 export default makeStyles((theme) => ({
   appBar: {
@@ -26,6 +31,23 @@ export default makeStyles((theme) => ({
   },
   hide: {
     display: "none",
+  },
+  navBtns: {
+    marginRight: "1rem",
+    [sizes.down("sm")]: {
+      // display: (props) => (props.open ? "none" : "block"),
+      opacity: (props) => (props.open ? 0 : 1),
+      transition: theme.transitions.create(["opacity"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    [sizes.down("xs")]: {
+      position: "absolute",
+      margin: "auto",
+      left: "50%",
+      transform: `translate(-50%, ${h - 70}px)`,
+    },
   },
   buttons: {
     margin: "0 0.25rem",
