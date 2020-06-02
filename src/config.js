@@ -4,6 +4,7 @@ const width = Math.max(
 );
 
 const sizeVars = {
+  xxs: "314px",
   xs: "575.98px",
   sm: "767.98px",
   md: "991.98px",
@@ -11,8 +12,20 @@ const sizeVars = {
   xl: "1600px",
 };
 
+const muiSizes = {
+  xxs: "350px",
+  xs: "420px",
+  sm: "600px",
+  md: "960px",
+  lg: "1280px",
+  xl: "1920px",
+};
+
 export const sizes = {
-  down: (size) => `@media (max-width: ${sizeVars[size]})`,
+  down: (size, mui) =>
+    !mui
+      ? `@media (max-width: ${sizeVars[size]})`
+      : `@media (max-width: ${muiSizes[size]})`,
 };
 
 let dw;

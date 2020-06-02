@@ -34,6 +34,7 @@ export default makeStyles((theme) => ({
   },
   navBtns: {
     marginRight: "1rem",
+    width: "max-content",
     [sizes.down("sm")]: {
       // display: (props) => (props.open ? "none" : "block"),
       opacity: (props) => (props.open ? 0 : 1),

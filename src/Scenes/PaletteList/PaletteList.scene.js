@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/styles";
 import Grid from "@material-ui/core/Grid";
 
 import MiniPalette from "./components/MiniPalette.component";
 
 import ls from "../../services/localStorageHelpers.service";
 
-import styles from "./PaletteList.styles";
+import useStyles from "./PaletteList.styles";
 
-function PaletteList({ palettes, setPalettes, classes, history }) {
+function PaletteList(props) {
+  const { palettes, setPalettes, history } = props;
+  const classes = useStyles(props);
   const handlePaletteClick = (e) => {
     history.push(`/palette/${e.currentTarget.dataset.id}`);
   };
@@ -28,7 +29,7 @@ function PaletteList({ palettes, setPalettes, classes, history }) {
         <div className={classes.palettes}>
           <Grid container spacing={3}>
             {palettes.map((palette) => (
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} sm={6} md={4}>
                 <MiniPalette
                   {...palette}
                   deletePalette={deletePalette}
@@ -43,4 +44,4 @@ function PaletteList({ palettes, setPalettes, classes, history }) {
   );
 }
 
-export default withStyles(styles)(PaletteList);
+export default PaletteList;
