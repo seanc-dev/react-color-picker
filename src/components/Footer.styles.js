@@ -1,6 +1,8 @@
-export default {
+import { makeStyles } from "@material-ui/styles";
+
+export default makeStyles({
   paletteFooter: {
-    backgroundColor: "white",
+    backgroundColor: (forPalette) => (forPalette ? "white" : "transparent"),
     height: "5vh",
     display: "flex",
     justifyContent: "flex-end",
@@ -11,4 +13,4 @@ export default {
     fontSize: "1rem",
     margin: "auto 1rem",
   },
-};
+});
