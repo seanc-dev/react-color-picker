@@ -12,6 +12,15 @@ const sizeVars = {
   xl: "1600px",
 };
 
+const sizeVarsNumeric = {
+  xxs: 314,
+  xs: 575.98,
+  sm: 767.98,
+  md: 991.98,
+  lg: 1199.98,
+  xl: 1600,
+};
+
 const muiSizes = {
   xxs: "350px",
   xs: "420px",
@@ -21,22 +30,22 @@ const muiSizes = {
   xl: "1920px",
 };
 
-export const sizes = {
-  down: (size, mui) =>
-    !mui
-      ? `@media (max-width: ${sizeVars[size]})`
-      : `@media (max-width: ${muiSizes[size]})`,
-};
-
 let dw;
-if (width > sizeVars.md) {
+if (width > sizeVarsNumeric.md) {
   dw = 350;
-} else if (width > sizeVars.sm) {
+} else if (width > sizeVarsNumeric.sm) {
   dw = 300;
-} else if (width > sizeVars.xs) {
+} else if (width > sizeVarsNumeric.xs) {
   dw = 250;
 } else {
   dw = width;
 }
 
 export const drawerWidth = dw;
+
+export const sizes = {
+  down: (size, mui) =>
+    !mui
+      ? `@media (max-width: ${sizeVars[size]})`
+      : `@media (max-width: ${muiSizes[size]})`,
+};
