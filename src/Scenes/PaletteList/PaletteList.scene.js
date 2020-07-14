@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 import MiniPalette from "./components/MiniPalette.component";
 
@@ -23,8 +24,16 @@ function PaletteList(props) {
     <div className={classes.root}>
       <div className={classes.container}>
         <nav className={classes.nav}>
-          <h1>Color Palette Builder</h1>
-          <Link to="/palette/new">Create Palette</Link>
+          <h1>ColorPaletteBuilder</h1>
+          <Link to="/palette/new" style={{ textDecoration: "none" }}>
+            <Button
+              classes={{ root: classes.createButton }}
+              variant="contained"
+              disableElevation
+            >
+              Create Palette
+            </Button>
+          </Link>
         </nav>
         <div className={classes.palettes}>
           <Grid container spacing={3}>
