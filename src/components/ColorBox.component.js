@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import useStyles from "./Colorbox.styles";
@@ -42,7 +43,11 @@ function ColorBox(props) {
           <button className={classes.copyButton}>Copy</button>
         </div>
         {fullPalette && (
-          <Link to={`/palette/${paletteId}/${id}`} onClick={stopPropagation}>
+          <Link
+            to={`/palette/${paletteId}/${id}`}
+            onClick={stopPropagation}
+            styles={{ textDecoration: "none" }}
+          >
             <span className={classes.moreButton}>More</span>
           </Link>
         )}

@@ -78,6 +78,15 @@ export default makeStyles((theme) => ({
     textTransform: "uppercase",
     textDecoration: "none",
     opacity: 0,
+    "&:hover": {
+      background: "rgba(255, 255, 255, 0.4)",
+      color: (props) =>
+        chroma(props.background).luminance() >= 0.5
+          ? "rgba(0,0,0,0.8)"
+          : "rgba(255,255,255,0.8)",
+      transition: "all 0.3s ease-in-out",
+      cursor: "pointer",
+    },
   },
   copyMessage: {
     position: "fixed",
@@ -129,7 +138,9 @@ export default makeStyles((theme) => ({
   },
   moreButton: {
     color: (props) =>
-      chroma(props.background).luminance() >= 0.5 ? "rgba(0,0,0,0.5)" : "white",
+      chroma(props.background).luminance() >= 0.5
+        ? "rgba(0,0,0,0.7)"
+        : "rgba(255,255,255,0.7)",
     background: "rgba(255, 255, 255, 0.3)",
     position: "absolute",
     border: "none",
@@ -139,5 +150,14 @@ export default makeStyles((theme) => ({
     width: "60px",
     textAlign: "center",
     lineHeight: "30px",
+    fontWeight: 100,
+    "&:hover": {
+      background: "transparent",
+      color: (props) =>
+        chroma(props.background).luminance() >= 0.5
+          ? "rgba(0,0,0,1)"
+          : "rgba(255,255,255,1)",
+      transition: "all 0.3s ease-in-out",
+    },
   },
 }));
