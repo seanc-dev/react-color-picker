@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   root: {
     backgroundColor: "white",
-    borderRadius: "5px",
-    border: "1px solid black",
+    borderRadius: "3px",
+    // border: "1px solid black",
     padding: "0.5rem",
     position: "relative",
     overflow: "hidden",
@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     backgroundColor: "#dae1e4",
     height: "150px",
     width: "100%",
-    borderRadius: "5px",
+    borderRadius: "3px",
     overflow: "hidden",
   },
   title: {
@@ -57,6 +57,6 @@ export default makeStyles((theme) => ({
     backgroundColor: "red",
     padding: "7px",
     borderRadius: "2px",
-    transition: "opacity 0.1s ease-in",
+    transition: "all 0.1s ease-in",
   },
 }));

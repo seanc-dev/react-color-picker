@@ -12,11 +12,6 @@ export default makeStyles((theme) => ({
     cursor: "pointer",
     textTransform: "uppercase",
     marginBottom: "-3.5px",
-    "&:hover svg": {
-      color: "white",
-      transform: "scale(1.1)",
-      transition: "all 0.1s ease-in",
-    },
     [sizes.down("lg")]: {
       width: (props) => props.drawerOpen && "25%",
       height: (props) => props.drawerOpen && "20%",
@@ -32,6 +27,10 @@ export default makeStyles((theme) => ({
     [sizes.down("xs")]: {
       width: "100%",
     },
+    "&:hover svg": {
+      transform: "scale(1)",
+      transition: "transform 0.1s ease-in",
+    },
   },
   boxContent: {
     position: "absolute",
@@ -43,6 +42,7 @@ export default makeStyles((theme) => ({
     textTransform: "uppercase",
     letterSpacing: "1px",
     fontSize: "12px",
+    lineHeight: "24px",
     display: "flex",
     justifyContent: "space-between",
   },
@@ -50,5 +50,10 @@ export default makeStyles((theme) => ({
     color: "rgba(0,0,0,0.7)",
     transform: "scale(0.8)",
     transition: "color 0.1s ease-out",
+    "&:hover": {
+      color: "white",
+      transform: "scale(1.1)",
+      transition: "all 0.1s ease-in",
+    },
   },
 }));
