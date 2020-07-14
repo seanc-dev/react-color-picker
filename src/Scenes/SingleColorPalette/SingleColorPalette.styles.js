@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
     opacity: 1,
     backgroundColor: "black",
     "& a": {
-      color: "white",
+      color: "lightgray",
       width: "100px",
       height: "30px",
       position: "absolute",
@@ -39,6 +39,10 @@ export default makeStyles((theme) => ({
       textTransform: "uppercase",
       border: "none",
       textDecoration: "none",
+      "&:hover": {
+        color: "white",
+        background: "rgba(255,255,255,0.4)",
+      },
     },
     [sizes.down("md")]: {
       width: "50%",
